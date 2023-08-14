@@ -47,6 +47,15 @@ class Gameboard {
       })
    }
 
+   receiveHit(coord) {
+      if (this.gameboard[coord[0]][coord[1]].isHit == true) {
+         return;
+      } else if (this.gameboard[coord[0]][coord[1]].ship != null) {
+         this.gameboard[coord[0]][coord[1]].ship.hit();  
+      } 
+      this.gameboard[coord[0]][coord[1]].isHit = true;  
+   }
+
 }
 
 export { Ship, Cell, Gameboard };
