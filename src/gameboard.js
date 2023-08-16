@@ -1,31 +1,7 @@
-class Ship {
-   constructor(length) {
-      this.length = length;
-      this.hits = 0;
-      this.isSunk = false;
-   }
+import { Cell } from "./cell";
+import { Ship } from "./ship";
 
-   hit() {
-      this.hits++;
-      this.checkIfSunk();
-   }
-
-   checkIfSunk() {
-      if (this.hits >= this.length) {
-         this.isSunk = true;
-      }
-   }
-
-}
-
-class Cell {
-   constructor() {
-      this.isHit = false;
-      this.ship = null;
-   }
-}
-
-class Gameboard {
+export class Gameboard {
    constructor() {
       this.rows = 10;
       this.columns = 10;
@@ -68,5 +44,3 @@ class Gameboard {
    }
 
 }
-
-export { Ship, Cell, Gameboard };
