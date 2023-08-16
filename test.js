@@ -63,3 +63,26 @@ test('Ship gets sunk', () => {
    expect(gameboard.gameboard[0][5].ship.isSunk).toBe(true);
    expect(gameboard.gameboard[0][6].ship.isSunk).toBe(true);
 });
+
+test('Gameboard reports not all ships sunk', () => {
+   let gameboard = new Gameboard;
+   gameboard.addShip([[0, 5], [0, 6]]);
+   gameboard.addShip([[2, 2], [2, 3], [2, 4]]);
+   gameboard.receiveHit([0, 5]);
+   gameboard.receiveHit([0, 6]);
+   gameboard.receiveHit([2, 2]);
+   gameboard.receiveHit([2, 3]);
+   expect(gameboard.allSunk).toBe(false);
+});
+
+test('Gameboard reports all ships sunk', () => {
+   let gameboard = new Gameboard;
+   gameboard.addShip([[0, 5], [0, 6]]);
+   gameboard.addShip([[2, 2], [2, 3], [2, 4]]);
+   gameboard.receiveHit([0, 5]);
+   gameboard.receiveHit([0, 6]);
+   gameboard.receiveHit([2, 2]);
+   gameboard.receiveHit([2, 3]);
+   gameboard.receiveHit([2, 4]);
+   expect(gameboard.allSunk).toBe(true);
+});
