@@ -1,4 +1,4 @@
-import { Ship, Cell, Gameboard } from './script.js';
+import { Ship, Cell, Gameboard, Player } from './script.js';
 
 test('A ship gets sunk when getting hit == "length" times', () => {
    let ship = new Ship(2);
@@ -86,3 +86,43 @@ test('Gameboard reports all ships sunk', () => {
    gameboard.receiveHit([2, 4]);
    expect(gameboard.allSunk).toBe(true);
 });
+
+test('1st player attacks 2nd player', () => {
+   let player1 = new Player('player 1');
+   let player2 = new Player('player 2');
+   player1.board.addShip([[0, 0], [0, 1]]);
+   player2.board.addShip([[0, 0], [0, 1]]);
+   player1.attack([0, 0], player2);
+   expect(player2.board.gameboard[0][0].isHit).toBe(true);
+});
+
+test('1st player sinks 2nd player ship', () => {
+   let player1 = new Player('player 1');
+   let player2 = new Player('player 2');
+   player1.board.addShip([[0, 0], [0, 1]]);
+   player2.board.addShip([[0, 0], [0, 1]]);
+   player1.attack([0, 0], player2);
+   player1.attack([0, 1], player2);
+   expect(player2.board.gameboard[0][0].ship.isSunk).toBe(true);
+   expect(player2.board.allSunk).toBe(true);
+});
+
+test('2nd player loses after losing all ships', () => {
+   let player1 = new Player('player 1');
+   let player2 = new Player('player 2');
+   player1.board.addShip([[0, 0], [0, 1]]);
+   player2.board.addShip([[0, 0], [0, 1]]);
+   player1.attack([0, 0], player2);
+   player1.attack([0, 1], player2);
+   player2.checkBoard();
+   expect(player2.hasLost).toBe(true);
+});
+
+test('Computer makes a turn', () => {
+   let player1 = new Player('player 1');
+   let player2 = new Player('player 2');
+   player1.board.addShip([[0, 0], [0, 1]]);
+   player2.board.addShip([[0, 0], [0, 1]]);
+   let check = player1.makeComputerTurn(player2);
+   expect(player2.board.gameboard[check[0]][check[1]].isHit).toBe(true);
+})
