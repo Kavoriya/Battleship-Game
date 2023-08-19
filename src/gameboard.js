@@ -1,5 +1,5 @@
-import { Cell } from "./cell";
-import { Ship } from "./ship";
+import { Cell } from "./cell.js";
+import { Ship } from "./ship.js";
 
 export class Gameboard {
    constructor() {

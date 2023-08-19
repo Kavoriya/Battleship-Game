@@ -1,4 +1,4 @@
-import { Gameboard } from "./gameboard";
+import { Gameboard } from "./gameboard.js";
 
 export class Player {
    constructor(name) {
@@ -15,12 +15,4 @@ export class Player {
       if (this.board.allSunk) this.hasLost = true;
    }
 
-   makeComputerTurn(player) {
-      let row = Math.floor(Math.random() * 10);
-      let column = Math.floor(Math.random() * 10);
-      if (player.board.gameboard[row][column].isHit == false) {
-         this.attack([row, column], player);
-      }
-      return [row, column];
-   }
 }

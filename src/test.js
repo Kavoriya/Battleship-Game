@@ -1,4 +1,4 @@
-import { Ship, Cell, Gameboard, Player } from './script.js';
+import { Ship, Cell, Gameboard, Player, ComputerPlayer } from './script.js';
 
 test('A ship gets sunk when getting hit == "length" times', () => {
    let ship = new Ship(2);
@@ -120,9 +120,9 @@ test('2nd player loses after losing all ships', () => {
 
 test('Computer makes a turn', () => {
    let player1 = new Player('player 1');
-   let player2 = new Player('player 2');
+   let player2 = new ComputerPlayer('player 2');
    player1.board.addShip([[0, 0], [0, 1]]);
    player2.board.addShip([[0, 0], [0, 1]]);
-   let check = player1.makeComputerTurn(player2);
-   expect(player2.board.gameboard[check[0]][check[1]].isHit).toBe(true);
+   let check = player2.makeTurn(player1);
+   expect(player1.board.gameboard[check[0]][check[1]].isHit).toBe(true);
 })
