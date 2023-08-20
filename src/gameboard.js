@@ -26,13 +26,13 @@ export class Gameboard {
    }
 
    receiveHit(coord) {
-      if (this.gameboard[coord[0]][coord[1]].isHit == true) {
-         return;
-      } else if (this.gameboard[coord[0]][coord[1]].ship != null) {
+      this.gameboard[coord[0]][coord[1]].isHit = true;
+      if (this.gameboard[coord[0]][coord[1]].ship != null) {
          this.gameboard[coord[0]][coord[1]].ship.hit();
          this.checkIfAllSunk();
+         return true;
       } 
-      this.gameboard[coord[0]][coord[1]].isHit = true;  
+      return false;
    }
 
    checkIfAllSunk() {
