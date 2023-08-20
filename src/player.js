@@ -1,14 +1,14 @@
 import { Gameboard } from "./gameboard.js";
 
 export class Player {
-   constructor(name) {
+   constructor(name = 'Player 1') {
       this.name = name;
       this.hasLost = false;
       this.board = new Gameboard();
    }
    
    attack(coords, player) {
-      player.board.receiveHit([coords[0], coords[1]]);
+      return player.board.receiveHit([coords[0], coords[1]]);
    }
 
    checkBoard() {

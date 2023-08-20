@@ -124,5 +124,5 @@ test('Computer makes a turn', () => {
    player1.board.addShip([[0, 0], [0, 1]]);
    player2.board.addShip([[0, 0], [0, 1]]);
    let check = player2.makeTurn(player1);
-   expect(player1.board.gameboard[check[0]][check[1]].isHit).toBe(true);
+   expect(player1.board.gameboard[check[1]][check[2]].isHit).toBe(true);
 })

@@ -5,12 +5,22 @@ export class ComputerPlayer extends Player {
       super(name);
    }
 
-   makeTurn(player) {
-      let row = Math.floor(Math.random() * 10);
-      let column = Math.floor(Math.random() * 10);
-      if (player.board.gameboard[row][column].isHit == false) {
-         this.attack([row, column], player);
+   makeTurn(player, rTarget, cTarget) {
+      let shot = false;
+      while (!shot) {
+         if (rTarget != undefined && cTarget != undefined) {
+            if (player.board.gameboard[rTarget][cTarget].isHit == false) {
+               shot = true;
+               return [this.attack([rTarget, cTarget], player), rTarget, cTarget];
+            }
+         }
+         let row = Math.floor(Math.random() * 10);
+         let column = Math.floor(Math.random() * 10);
+         if (player.board.gameboard[row][column].isHit == false) {
+            shot = true;
+            return [this.attack([row, column], player), row, column];
+         }
       }
-      return [row, column];
    }
+
 }
