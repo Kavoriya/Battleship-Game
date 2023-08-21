@@ -2,10 +2,15 @@
    box-sizing: border-box;
 }
 
-body {
+main {
    display: grid;
    grid-template-columns: 1fr 1fr;
-   
+}
+
+.player-div {
+   display: grid;
+   grid-template-columns: 1fr;
+   justify-items: center;
 }
 
 .cell {
@@ -41,3 +46,4 @@ body {
 .disabled {
    pointer-events: none;
 }
+
