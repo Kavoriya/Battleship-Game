@@ -69,6 +69,9 @@ export class Game {
             cellDiv.classList.add('cell');
             cellDiv.dataset.row = row;
             cellDiv.dataset.column = cell;
+            cellDiv.addEventListener('click', () => {
+               this.playerTurn([row, cell]);
+            })
 
             if ((this.computer.board.gameboard[row][cell].ship != null) 
             && (this.computer.board.gameboard[row][cell].isHit)) {
@@ -88,20 +91,31 @@ export class Game {
    }
 
    computerTurn() {
-      console.log('new turn')
+      console.log('Computer turn');
       let computerBoard = document.querySelector('.computer-board');
       computerBoard.classList.add('disabled');
-      console.log(this.computer);
       let hit = this.computer.makeTurn(this.player);
       if (hit[0]) {
          setTimeout(() => {
             this.computerTurn()
          }, 2000);
-         console.log('hit')
+         console.log('Computer hits')
          
       } else {
-         console.log('miss')
+         console.log('Computer misses')
          console.log(hit[1], hit[2])
+      }
+
+      this.refresh();
+   }
+
+   playerTurn(coords) {
+      let hit = this.player.attack(coords, this.computer);
+      if (hit) {
+         console.log('Player hits');
+      } else {
+         console.log('Player misses');
+         this.computerTurn();
       }
 
       this.refresh();
