@@ -100,18 +100,19 @@ export class Game {
 
    computerTurn() {
       console.log('Computer turn');
-      let computerBoard = document.querySelector('.computer-board');
-      computerBoard.classList.add('disabled');
+      let body = document.querySelector('body');
       let hit = this.computer.makeTurn(this.player);
       if (hit[0]) {
+         body.classList.add('disabled');
          setTimeout(() => {
             this.computerTurn()
-         }, 2000);
+         }, 5000);
          console.log('Computer hits')
          
       } else {
          console.log('Computer misses')
          console.log(hit[1], hit[2])
+         body.classList.remove('disabled');
       }
 
       this.refresh();

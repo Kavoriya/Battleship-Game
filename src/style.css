@@ -38,6 +38,6 @@ body {
    max-width: fit-content;
 }
 
-.board.disabled {
+.disabled {
    pointer-events: none;
 }
