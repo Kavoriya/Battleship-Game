@@ -13,10 +13,18 @@ export class Game {
    }
 
    populateBoards() {
+      this.populatePlayerBoard();
+      this.populateComputerBoard();
+   }
+
+   populatePlayerBoard() {
       this.player.board.addShip([[0, 0], [0, 1], [0, 2]]);
       this.player.board.addShip([[2, 0], [2, 1], [2, 2]]);
       this.player.board.addShip([[4, 0], [4, 1], [4, 2]]);
       this.player.board.addShip([[4, 6], [4, 7], [4, 8]]);
+   }
+
+   populateComputerBoard() {
       this.computer.board.addShip([[0, 0], [0, 1], [0, 2]]);
       this.computer.board.addShip([[2, 0], [2, 1], [2, 2]]);
       this.computer.board.addShip([[4, 0], [4, 1], [4, 2]]);
