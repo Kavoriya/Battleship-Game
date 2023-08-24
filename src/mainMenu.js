@@ -3,17 +3,31 @@ import { Gameboard } from "./gameboard.js";
 export class mainMenu {
    constructor() {
       this.playerOneGameboard = new Gameboard();
-      this.playerTwoGameboard = new Gameboard();
+      this.addShipsToPlayerOne();
+
       let body = document.querySelector('body');
       let main = document.createElement('main');
-      let playerOneDiv = document.createElement('div');
-      let playerTwoDiv = document.createElement('div');
-      playerOneDiv.classList.add('player-div');
-      playerTwoDiv.classList.add('player-div');
 
+      this.renderPlayerOneDiv(main);
+      this.renderMenuDiv(main);
+
+      body.appendChild(main);
+
+   }
+
+   addShipsToPlayerOne() {
+      this.playerOneGameboard.addShip([[0, 5], [0, 6], [0, 7], [0, 8]]);
+      this.playerOneGameboard.addShip([[2, 1], [2, 2], [2, 3]]);
+      this.playerOneGameboard.addShip([[2, 8], [3, 8], [4, 8]]);
+      this.playerOneGameboard.addShip([[6, 0], [6, 1]]);
+      this.playerOneGameboard.addShip([[6, 4], [7, 4]]);
+   }
+
+   renderPlayerOneDiv(main) {
+      let playerOneDiv = document.createElement('div');
+      playerOneDiv.classList.add('player-div');
       let boardOne = document.createElement('div');
       boardOne.classList.add('board');
-
       for (let row = 0; row < this.playerOneGameboard.gameboard.length; row++) {
          for (let cell = 0; cell < this.playerOneGameboard.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
@@ -41,12 +55,26 @@ export class mainMenu {
 
       playerOneDiv.appendChild(boardOne);
       main.appendChild(playerOneDiv);
-      body.appendChild(main);
 
    }
 
-   randomizeShips() {
+   renderMenuDiv(main) {
+      let menuDiv = document.createElement('div');
+      menuDiv.classList.add('player-div', 'menu-div');
+      let playWithComputerButton = document.createElement('button');
+      playWithComputerButton.classList.add('menu-button');
+      playWithComputerButton.textContent = 'PLAY';
+      playWithComputerButton.addEventListener('click', () => {
+         this.playGameWithComputer();
+      });
 
+      menuDiv.append(playWithComputerButton);
+
+      main.appendChild(menuDiv);
+   }
+
+   playGameWithComputer() {
+      console.log('play')
    }
 
 }
