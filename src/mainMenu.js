@@ -1,3 +1,4 @@
+import { Game } from "./game.js";
 import { Gameboard } from "./gameboard.js";
 
 export class mainMenu {
@@ -65,7 +66,7 @@ export class mainMenu {
       playWithComputerButton.classList.add('menu-button');
       playWithComputerButton.textContent = 'PLAY';
       playWithComputerButton.addEventListener('click', () => {
-         this.playGameWithComputer();
+         this.playGameWithComputer(this.playerOneGameboard);
       });
 
       menuDiv.append(playWithComputerButton);
@@ -73,8 +74,10 @@ export class mainMenu {
       main.appendChild(menuDiv);
    }
 
-   playGameWithComputer() {
-      console.log('play')
+   playGameWithComputer(playerOneGameboard) {
+      console.log('play');
+      let game = new Game(playerOneGameboard);
+      game.refresh();
    }
 
 }

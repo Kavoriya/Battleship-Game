@@ -2,14 +2,20 @@ import { ComputerPlayer } from "./computerPlayer.js";
 import { Player } from "./player.js";
 
 export class Game {
-   constructor() {
+   constructor(playerOneBoard) {
       this.player = new Player();
+      this.player.board = playerOneBoard;
+      console.log(this.player);
       this.computer = new ComputerPlayer();
+      this.populateComputerBoard();
    }
 
    refresh() {
-      this.displayPlayerBoard();
-      this.displayComputerBoard();
+      let main = document.querySelector('main');
+      main.innerHTML = '';
+
+      this.renderPlayerOneDiv(main);
+      this.renderComputerDiv(main);
    }
 
    populateBoards() {
@@ -31,12 +37,11 @@ export class Game {
       this.computer.board.addShip([[4, 6], [4, 7], [4, 8]]);
    }
 
-   displayPlayerBoard() {
-      this.removePlayerBoard();
-      let body = document.querySelector('body');
-      let playerBoard = document.createElement('div');
-      playerBoard.classList.add('board', 'player-board');
-
+   renderPlayerOneDiv(main) {
+      let playerOneDiv = document.createElement('div');
+      playerOneDiv.classList.add('player-div');
+      let boardOne = document.createElement('div');
+      boardOne.classList.add('board');
       for (let row = 0; row < this.player.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.player.board.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
@@ -58,18 +63,20 @@ export class Game {
                cellDiv.classList.add('miss');
             }
 
-            playerBoard.appendChild(cellDiv);
+            boardOne.appendChild(cellDiv);
          }
       }
 
-      body.appendChild(playerBoard);
+      playerOneDiv.appendChild(boardOne);
+      main.appendChild(playerOneDiv);
+
    }
 
-   displayComputerBoard() {
-      this.removeComputerBoard();
-      let body = document.querySelector('body');
+   renderComputerDiv(main) {
+      let computerDiv = document.createElement('div');
+      computerDiv.classList.add('player-div');
       let computerBoard = document.createElement('div');
-      computerBoard.classList.add('board', 'computer-board');
+      computerBoard.classList.add('board');
 
       for (let row = 0; row < this.computer.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.computer.board.gameboard[row].length; cell++) {
@@ -95,7 +102,8 @@ export class Game {
          }
       }
       
-      body.appendChild(computerBoard);
+      computerDiv.appendChild(computerBoard);
+      main.appendChild(computerDiv);
    }
 
    computerTurn() {
@@ -106,7 +114,7 @@ export class Game {
          body.classList.add('disabled');
          setTimeout(() => {
             this.computerTurn()
-         }, 5000);
+         }, 2000);
          console.log('Computer hits')
          
       } else {
