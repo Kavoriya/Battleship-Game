@@ -8,6 +8,8 @@ export class Game {
       console.log(this.player);
       this.computer = new ComputerPlayer();
       this.populateComputerBoard();
+      this.isOver = false;
+      this.winner = null;
    }
 
    refresh() {
@@ -107,20 +109,17 @@ export class Game {
    }
 
    computerTurn() {
-      console.log('Computer turn');
-      let body = document.querySelector('body');
+      let main = document.querySelector('main');
       let hit = this.computer.makeTurn(this.player);
       if (hit[0]) {
-         body.classList.add('disabled');
+         this.checkGameOver();
+         main.classList.add('disabled');
          setTimeout(() => {
             this.computerTurn()
          }, 2000);
-         console.log('Computer hits')
-         
       } else {
-         console.log('Computer misses')
+         main.classList.remove('disabled');
          console.log(hit[1], hit[2])
-         body.classList.remove('disabled');
       }
 
       this.refresh();
@@ -129,9 +128,8 @@ export class Game {
    playerTurn(coords) {
       let hit = this.player.attack(coords, this.computer);
       if (hit) {
-         console.log('Player hits');
+         this.checkGameOver();
       } else {
-         console.log('Player misses');
          this.computerTurn();
       }
 
@@ -147,6 +145,21 @@ export class Game {
    removeComputerBoard() {
       if(document.querySelector('.computer-board')) {
          document.querySelector('.computer-board').remove();
+      }
+   }
+
+   checkGameOver() {
+      this.player.checkBoard();
+      this.computer.checkBoard();
+      if (this.player.hasLost) {
+         this.winner = this.computer;
+      }
+      if (this.computer.hasLost) {
+         this.winner = this.player;
+      }
+      if (this.player.hasLost || this.computer.hasLost) {
+         console.log(this.winner.name + ' won!');
+         this.isOver = true;
       }
    }
 }
