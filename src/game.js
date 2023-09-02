@@ -10,6 +10,7 @@ export class Game {
       this.populateComputerBoard();
       this.isOver = false;
       this.winner = null;
+      this.randomizeShips();
    }
 
    refresh() {
@@ -160,6 +161,27 @@ export class Game {
       if (this.player.hasLost || this.computer.hasLost) {
          console.log(this.winner.name + ' won!');
          this.isOver = true;
+      }
+   }
+
+   randomizeShips(board) {
+      let shipsToPlace = [4, 3, 3, 2, 2, 1, 1];
+      for (let ship = 0; ship < shipsToPlace.length; ship++) {
+         let startPosition = [
+            Math.floor(Math.random() * 10), 
+            Math.floor(Math.random() * 10)
+         ];
+         let shipLength = ship;
+         let directions = [1, 2, 3, 4];
+         for (var i = directions.length - 1; i > 0; i--) { // randomize directions
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = directions[i];
+            directions[i] = directions[j];
+            directions[j] = temp;
+        }
+        console.log(startPosition + ' - starting position')
+        console.log(directions);
+        
       }
    }
 }
