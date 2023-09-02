@@ -32,6 +32,10 @@ main {
    background-color: aqua;
 }
 
+.cell.occupied {
+   background-color: brown;
+}
+
 .cell.has-ship {
    border: 1px solid blue;
    background-color: blue;

@@ -66,6 +66,10 @@ export class Game {
                cellDiv.classList.add('miss');
             }
 
+            if (this.player.board.gameboard[row][cell].isOccupied) {
+               cellDiv.classList.add('occupied');
+            }
+
             boardOne.appendChild(cellDiv);
          }
       }

@@ -50,6 +50,10 @@ export class mainMenu {
                cellDiv.classList.add('miss');
             }
 
+            if (this.playerOneGameboard.gameboard[row][cell].isOccupied) {
+               cellDiv.classList.add('occupied')
+            }
+
             boardOne.appendChild(cellDiv);
          }
       }
