@@ -4,7 +4,7 @@ import { Gameboard } from "./gameboard.js";
 export class mainMenu {
    constructor() {
       this.playerOneGameboard = new Gameboard();
-      this.addShipsToPlayerOne();
+      // this.addShipsToPlayerOne();
 
       let body = document.querySelector('body');
       let main = document.createElement('main');
