@@ -1,11 +1,12 @@
 import { Game } from "./game.js";
 import { Gameboard } from "./gameboard.js";
+import { ShipsRandomizer } from "./shipsRandomizer.js";
 
 export class mainMenu {
    constructor() {
       this.playerOneGameboard = new Gameboard();
       // this.addShipsToPlayerOne();
-
+      this.playerOneGameboard = new ShipsRandomizer();
       let body = document.querySelector('body');
       let main = document.createElement('main');
 
@@ -29,6 +30,7 @@ export class mainMenu {
       playerOneDiv.classList.add('player-div');
       let boardOne = document.createElement('div');
       boardOne.classList.add('board');
+      console.log(this.playerOneGameboard)
       for (let row = 0; row < this.playerOneGameboard.gameboard.length; row++) {
          for (let cell = 0; cell < this.playerOneGameboard.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
