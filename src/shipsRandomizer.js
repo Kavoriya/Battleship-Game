@@ -3,7 +3,7 @@ import { Gameboard } from "./gameboard.js";
 export class ShipsRandomizer {
    constructor() {
       let board = new Gameboard();
-      let shipsToPlace = [4, 3, 3, 2, 2, 1, 1];
+      let shipsToPlace = [4, 4, 3, 3, 3, 2, 2, 1, 1];
       for (let ship = 0; ship < shipsToPlace.length; ship++) {
          let start = this.findStartCell(board.gameboard);
          let directions = this.randomizeDirections();

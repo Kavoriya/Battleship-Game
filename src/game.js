@@ -46,12 +46,27 @@ export class Game {
       playerOneDiv.classList.add('player-div');
       let boardOne = document.createElement('div');
       boardOne.classList.add('board');
+      let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       for (let row = 0; row < this.player.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.player.board.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
             cellDiv.classList.add('cell');
             cellDiv.dataset.row = row;
             cellDiv.dataset.column = cell;
+
+            if (row == 0) {
+               let letterSpan = document.createElement('span');
+               letterSpan.classList.add('column-letter');
+               letterSpan.textContent = letters[cell];
+               cellDiv.append(letterSpan);
+            }
+
+            if (cell == 0) {
+               let digitSpan = document.createElement('span');
+               digitSpan.classList.add('row-digit');
+               digitSpan.textContent = row + 1;
+               cellDiv.append(digitSpan);
+            }
 
             if (this.player.board.gameboard[row][cell].ship != null)  {
                cellDiv.classList.add('has-ship');
@@ -85,7 +100,7 @@ export class Game {
       computerDiv.classList.add('player-div');
       let computerBoard = document.createElement('div');
       computerBoard.classList.add('board');
-
+      let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       for (let row = 0; row < this.computer.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.computer.board.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
@@ -95,6 +110,20 @@ export class Game {
             cellDiv.addEventListener('click', () => {
                this.playerTurn([row, cell]);
             })
+
+            if (row == 0) {
+               let letterSpan = document.createElement('span');
+               letterSpan.classList.add('column-letter');
+               letterSpan.textContent = letters[cell];
+               cellDiv.append(letterSpan);
+            }
+
+            if (cell == 0) {
+               let digitSpan = document.createElement('span');
+               digitSpan.classList.add('row-digit');
+               digitSpan.textContent = row + 1;
+               cellDiv.append(digitSpan);
+            }
 
             if ((this.computer.board.gameboard[row][cell].ship != null) 
             && (this.computer.board.gameboard[row][cell].isHit)) {
@@ -122,7 +151,7 @@ export class Game {
          main.classList.add('disabled');
          setTimeout(() => {
             this.computerTurn()
-         }, 2000);
+         }, 500);
       } else {
          main.classList.remove('disabled');
          console.log(hit[1], hit[2])

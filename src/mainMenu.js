@@ -30,7 +30,8 @@ export class mainMenu {
       playerOneDiv.classList.add('player-div');
       let boardOne = document.createElement('div');
       boardOne.classList.add('board');
-      console.log(this.playerOneGameboard)
+      console.log(this.playerOneGameboard);
+      let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       for (let row = 0; row < this.playerOneGameboard.gameboard.length; row++) {
          for (let cell = 0; cell < this.playerOneGameboard.gameboard[row].length; cell++) {
             let cellDiv = document.createElement('div');
@@ -38,6 +39,20 @@ export class mainMenu {
             cellDiv.dataset.row = row;
             cellDiv.dataset.column = cell;
 
+            if (row == 0) {
+               let letterSpan = document.createElement('span');
+               letterSpan.classList.add('column-letter');
+               letterSpan.textContent = letters[cell];
+               cellDiv.append(letterSpan);
+            }
+
+            if (cell == 0) {
+               let digitSpan = document.createElement('span');
+               digitSpan.classList.add('row-digit');
+               digitSpan.textContent = row + 1;
+               cellDiv.append(digitSpan);
+            }
+            
             if (this.playerOneGameboard.gameboard[row][cell].ship != null)  {
                cellDiv.classList.add('has-ship');
             }
