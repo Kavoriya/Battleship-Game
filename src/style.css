@@ -65,6 +65,11 @@ main {
    background-color: red;
 }
 
+.cell.sunk {
+   color: rgb(255, 232, 232);
+   font-size: 2rem;
+}
+
 .board {
    display: grid;
    grid-template-columns: repeat(10, 1fr);

@@ -1,6 +1,7 @@
 import { ComputerPlayer } from "./computerPlayer.js";
 import { Player } from "./player.js";
 import { ShipsRandomizer } from "./shipsRandomizer.js";
+import { Gameboard } from "./gameboard.js";
 
 export class Game {
    constructor(playerOneBoard) {
@@ -12,6 +13,7 @@ export class Game {
       this.isOver = false;
       this.winner = null;
       this.computer.board = new ShipsRandomizer();
+      console.log(this.computer.board)
    }
 
    refresh() {
@@ -82,9 +84,9 @@ export class Game {
                cellDiv.classList.add('miss');
             }
 
-            if (this.player.board.gameboard[row][cell].isOccupied) {
-               cellDiv.classList.add('occupied');
-            }
+            // if (this.player.board.gameboard[row][cell].isOccupied) {
+            //    cellDiv.classList.add('occupied');
+            // }
 
             boardOne.appendChild(cellDiv);
          }
@@ -133,6 +135,15 @@ export class Game {
             if ((this.computer.board.gameboard[row][cell].ship == null) 
             && (this.computer.board.gameboard[row][cell].isHit)) {
                cellDiv.classList.add('miss');
+            }
+
+            if (this.computer.board.gameboard[row][cell].ship) {
+               if (this.computer.board.gameboard[row][cell].ship.isSunk == true) {
+                  cellDiv.classList.add('sunk');
+                  let cross = document.createElement('span');
+                  cross.textContent = 'X';
+                  cellDiv.append(cross);
+               }
             }
 
             computerBoard.appendChild(cellDiv);
