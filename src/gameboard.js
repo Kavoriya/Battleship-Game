@@ -1,6 +1,7 @@
 import { Cell } from "./cell.js";
 import { Ship } from "./ship.js";
 import { isValidCell } from "./cellValidator.js";
+import { findEdges } from "./findEdges.js";
 
 export class Gameboard {
    constructor() {
@@ -46,22 +47,9 @@ export class Gameboard {
    }
 
    occupyCells(coord) {
-      let cellsToOccupy = [];
-      let north = [coord[0] - 1, coord[1]];
-      let northEast = [coord[0] - 1, coord[1] + 1];
-      let east = [coord[0], coord[1] + 1];
-      let southEast = [coord[0] + 1, coord[1] + 1];
-      let south = [coord[0] + 1, coord[1]];
-      let southWest = [coord[0] + 1, coord[1] - 1];
-      let west = [coord[0], coord[1] - 1];
-      let northWest = [coord[0] - 1, coord[1] - 1];
-      cellsToOccupy.push(north, northEast, east, 
-         southEast, south, southWest, 
-         west, northWest, coord);
+      let cellsToOccupy = findEdges(coord);
       cellsToOccupy.forEach(cell => {
-         if (isValidCell(cell)) {
-            this.gameboard[cell[0]][cell[1]].isOccupied = true;
-         }
+         this.gameboard[cell[0]][cell[1]].isOccupied = true;
       })
    }
 }
