@@ -2,6 +2,7 @@ import { ComputerPlayer } from "./computerPlayer.js";
 import { Player } from "./player.js";
 import { ShipsRandomizer } from "./shipsRandomizer.js";
 import { Gameboard } from "./gameboard.js";
+import { CellBuilder } from "./cellBuilder.js";
 
 export class Game {
    constructor(playerOneBoard) {
@@ -48,27 +49,10 @@ export class Game {
       playerOneDiv.classList.add('player-div');
       let boardOne = document.createElement('div');
       boardOne.classList.add('board');
-      let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+     
       for (let row = 0; row < this.player.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.player.board.gameboard[row].length; cell++) {
-            let cellDiv = document.createElement('div');
-            cellDiv.classList.add('cell');
-            cellDiv.dataset.row = row;
-            cellDiv.dataset.column = cell;
-
-            if (row == 0) {
-               let letterSpan = document.createElement('span');
-               letterSpan.classList.add('column-letter');
-               letterSpan.textContent = letters[cell];
-               cellDiv.append(letterSpan);
-            }
-
-            if (cell == 0) {
-               let digitSpan = document.createElement('span');
-               digitSpan.classList.add('row-digit');
-               digitSpan.textContent = row + 1;
-               cellDiv.append(digitSpan);
-            }
+            let cellDiv = new CellBuilder(row, cell);
 
             if (this.player.board.gameboard[row][cell].ship != null)  {
                cellDiv.classList.add('has-ship');
@@ -102,30 +86,12 @@ export class Game {
       computerDiv.classList.add('player-div');
       let computerBoard = document.createElement('div');
       computerBoard.classList.add('board');
-      let letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
       for (let row = 0; row < this.computer.board.gameboard.length; row++) {
          for (let cell = 0; cell < this.computer.board.gameboard[row].length; cell++) {
-            let cellDiv = document.createElement('div');
-            cellDiv.classList.add('cell');
-            cellDiv.dataset.row = row;
-            cellDiv.dataset.column = cell;
+            let cellDiv = new CellBuilder(row, cell);
             cellDiv.addEventListener('click', () => {
                this.playerTurn([row, cell]);
             })
-
-            if (row == 0) {
-               let letterSpan = document.createElement('span');
-               letterSpan.classList.add('column-letter');
-               letterSpan.textContent = letters[cell];
-               cellDiv.append(letterSpan);
-            }
-
-            if (cell == 0) {
-               let digitSpan = document.createElement('span');
-               digitSpan.classList.add('row-digit');
-               digitSpan.textContent = row + 1;
-               cellDiv.append(digitSpan);
-            }
 
             if ((this.computer.board.gameboard[row][cell].ship != null) 
             && (this.computer.board.gameboard[row][cell].isHit)) {
@@ -137,13 +103,13 @@ export class Game {
                cellDiv.classList.add('miss');
             }
 
-            if (this.computer.board.gameboard[row][cell].ship) {
-               if (this.computer.board.gameboard[row][cell].ship.isSunk == true) {
-                  cellDiv.classList.add('sunk');
-                  let cross = document.createElement('span');
-                  cross.textContent = 'X';
-                  cellDiv.append(cross);
-               }
+            if (this.computer.board.gameboard[row][cell].ship 
+            && this.computer.board.gameboard[row][cell].ship.isSunk) {
+               cellDiv.classList.add('sunk');
+               let cross = document.createElement('span');
+               cross.textContent = 'X';
+               cellDiv.append(cross);
+               
             }
 
             computerBoard.appendChild(cellDiv);
