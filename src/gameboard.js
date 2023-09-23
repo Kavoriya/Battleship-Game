@@ -1,5 +1,6 @@
 import { Cell } from "./cell.js";
 import { Ship } from "./ship.js";
+import { isValidCell } from "./cellValidator.js";
 
 export class Gameboard {
    constructor() {
@@ -58,19 +59,9 @@ export class Gameboard {
          southEast, south, southWest, 
          west, northWest, coord);
       cellsToOccupy.forEach(cell => {
-         if (this.isValidCell(cell)) {
+         if (isValidCell(cell)) {
             this.gameboard[cell[0]][cell[1]].isOccupied = true;
          }
       })
-   }
-
-   isValidCell(coord) {
-      if (coord[0] < 0 ||
-         coord[1] < 0 ||
-         coord[0] > this.rows - 1 ||
-         coord[1] > this.columns - 1) { 
-            return false;
-      }
-      return true;
    }
 }

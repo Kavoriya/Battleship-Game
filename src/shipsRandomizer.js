@@ -1,4 +1,5 @@
 import { Gameboard } from "./gameboard.js";
+import { isValidCell } from "./cellValidator.js";
 
 export class ShipsRandomizer {
    constructor() {
@@ -41,7 +42,7 @@ export class ShipsRandomizer {
       let isAvailable = true;
       for (let i = 0; i < shipLength - 1; i++) {
          start = [start[0] + row, start[1] + column];
-         if (board.isValidCell([start[0], start[1]]) && (!board.gameboard[start[0]][start[1]].isOccupied)) {
+         if (isValidCell([start[0], start[1]]) && (!board.gameboard[start[0]][start[1]].isOccupied)) {
             ship.push([start[0], start[1]]);
          } else {
             isAvailable = false;
