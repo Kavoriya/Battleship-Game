@@ -68,6 +68,14 @@ export class Game {
                cellDiv.classList.add('miss');
             }
 
+            if (this.player.board.gameboard[row][cell].ship 
+            && this.player.board.gameboard[row][cell].ship.isSunk) {
+                  cellDiv.classList.add('sunk');
+                  let cross = document.createElement('span');
+                  cross.textContent = 'X';
+                  cellDiv.append(cross);  
+            }
+
             // if (this.player.board.gameboard[row][cell].isOccupied) {
             //    cellDiv.classList.add('occupied');
             // }
