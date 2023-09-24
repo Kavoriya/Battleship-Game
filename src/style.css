@@ -76,7 +76,7 @@ main {
    max-width: fit-content;
 }
 
-.disabled {
+.disabled, .miss, .hit {
    pointer-events: none;
 }
 
