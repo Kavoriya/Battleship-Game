@@ -23,6 +23,7 @@ export class Gameboard {
       let newShip = new Ship(coords.length);
       coords.forEach(coord => {
          this.gameboard[coord[0]][coord[1]].ship = newShip;
+         newShip.coords.push(coord);
          this.occupyCells(coord);
       })
       this.shipsList.push(newShip);
@@ -30,11 +31,15 @@ export class Gameboard {
 
    receiveHit(coord) {
       this.gameboard[coord[0]][coord[1]].isHit = true;
-      if (this.gameboard[coord[0]][coord[1]].ship != null) {
-         this.gameboard[coord[0]][coord[1]].ship.hit();
+      let ship = this.gameboard[coord[0]][coord[1]].ship;
+      if (ship != null) {
+         ship.hit();
+         if (ship.isSunk) {
+            ship.coords.forEach(coord => this.hitCellEdges(coord))
+         }
          this.checkIfAllSunk();
          return true;
-      } 
+      }
       return false;
    }
 
@@ -50,6 +55,13 @@ export class Gameboard {
       let cellsToOccupy = findEdges(coord);
       cellsToOccupy.forEach(cell => {
          this.gameboard[cell[0]][cell[1]].isOccupied = true;
+      })
+   }
+
+   hitCellEdges(coord) {
+      let cellsToHit = findEdges(coord);
+      cellsToHit.forEach(cell => {
+         this.gameboard[cell[0]][cell[1]].isHit = true;
       })
    }
 }
