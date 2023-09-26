@@ -131,7 +131,7 @@ export class Game {
    computerTurn() {
       let main = document.querySelector('main');
       let hit = this.computer.makeTurn(this.player);
-      if (hit[0]) {
+      if (hit) {
          this.checkGameOver();
          main.classList.add('disabled');
          setTimeout(() => {
@@ -139,7 +139,6 @@ export class Game {
          }, 500);
       } else {
          main.classList.remove('disabled');
-         console.log(hit[1], hit[2])
       }
 
       this.refresh();
@@ -180,6 +179,8 @@ export class Game {
       if (this.player.hasLost || this.computer.hasLost) {
          console.log(this.winner.name + ' won!');
          this.isOver = true;
+         let main = document.querySelector('main');
+         main.classList.add('disabled');
       }
    }
 
