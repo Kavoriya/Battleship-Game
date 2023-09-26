@@ -1,5 +1,6 @@
 import { Gameboard } from "./gameboard.js";
 import { isValidCell } from "./cellValidator.js";
+import { randomizeDirections } from "./randomizeDirections.js";
 
 export class ShipsRandomizer {
    constructor() {
@@ -7,7 +8,7 @@ export class ShipsRandomizer {
       let shipsToPlace = [4, 4, 3, 3, 3, 2, 2, 1, 1];
       for (let ship = 0; ship < shipsToPlace.length; ship++) {
          let start = this.findStartCell(board.gameboard);
-         let directions = this.randomizeDirections();
+         let directions = randomizeDirections();
          let shipLength = shipsToPlace[ship];
          for (let i = 0; i < directions.length; i++) {
             let newShip = this.checkDirections(start, directions[i], shipLength, board);
@@ -72,16 +73,4 @@ export class ShipsRandomizer {
          }
       }
    }
-
-   randomizeDirections() {
-      let directions = [1, 2, 3, 4];
-      for (var i = directions.length - 1; i > 0; i--) {
-         var j = Math.floor(Math.random() * (i + 1));
-         var temp = directions[i];
-         directions[i] = directions[j];
-         directions[j] = temp;
-     }
-     return directions;
-   }
-
 }
