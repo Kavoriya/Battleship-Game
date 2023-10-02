@@ -1,8 +1,7 @@
 import { ComputerPlayer } from "./computerPlayer.js";
 import { Player } from "./player.js";
 import { ShipsRandomizer } from "./shipsRandomizer.js";
-import { Gameboard } from "./gameboard.js";
-import { CellBuilder } from "./cellBuilder.js";
+import { Battlefield } from "./battlefieldBuilder.js";
 
 export class Game {
    constructor(playerOneBoard) {
@@ -47,84 +46,22 @@ export class Game {
    renderPlayerOneDiv(main) {
       let playerOneDiv = document.createElement('div');
       playerOneDiv.classList.add('player-div');
-      let boardOne = document.createElement('div');
-      boardOne.classList.add('board');
-     
-      for (let row = 0; row < this.player.board.gameboard.length; row++) {
-         for (let cell = 0; cell < this.player.board.gameboard[row].length; cell++) {
-            let cellDiv = new CellBuilder(row, cell);
-
-            if (this.player.board.gameboard[row][cell].ship != null)  {
-               cellDiv.classList.add('has-ship');
-            }
-
-            if ((this.player.board.gameboard[row][cell].ship != null) 
-            && (this.player.board.gameboard[row][cell].isHit)) {
-               cellDiv.classList.add('hit');
-            }
-
-            if ((this.player.board.gameboard[row][cell].ship == null) 
-            && (this.player.board.gameboard[row][cell].isHit)) {
-               cellDiv.classList.add('miss');
-            }
-
-            if (this.player.board.gameboard[row][cell].ship 
-            && this.player.board.gameboard[row][cell].ship.isSunk) {
-                  cellDiv.classList.add('sunk');
-                  let cross = document.createElement('span');
-                  cross.textContent = 'X';
-                  cellDiv.append(cross);  
-            }
-
-            // if (this.player.board.gameboard[row][cell].isOccupied) {
-            //    cellDiv.classList.add('occupied');
-            // }
-
-            boardOne.appendChild(cellDiv);
-         }
-      }
-
-      playerOneDiv.appendChild(boardOne);
+      let playerBattlefield = new Battlefield(this.player.board.gameboard, 'Game(Player)');
+      playerOneDiv.appendChild(playerBattlefield);
       main.appendChild(playerOneDiv);
-
    }
 
    renderComputerDiv(main) {
       let computerDiv = document.createElement('div');
       computerDiv.classList.add('player-div');
-      let computerBoard = document.createElement('div');
-      computerBoard.classList.add('board');
-      for (let row = 0; row < this.computer.board.gameboard.length; row++) {
-         for (let cell = 0; cell < this.computer.board.gameboard[row].length; cell++) {
-            let cellDiv = new CellBuilder(row, cell);
-            cellDiv.addEventListener('click', () => {
-               this.playerTurn([row, cell]);
-            })
-
-            if ((this.computer.board.gameboard[row][cell].ship != null) 
-            && (this.computer.board.gameboard[row][cell].isHit)) {
-               cellDiv.classList.add('hit');
-            }
-
-            if ((this.computer.board.gameboard[row][cell].ship == null) 
-            && (this.computer.board.gameboard[row][cell].isHit)) {
-               cellDiv.classList.add('miss');
-            }
-
-            if (this.computer.board.gameboard[row][cell].ship 
-            && this.computer.board.gameboard[row][cell].ship.isSunk) {
-               cellDiv.classList.add('sunk');
-               let cross = document.createElement('span');
-               cross.textContent = 'X';
-               cellDiv.append(cross);
-               
-            }
-
-            computerBoard.appendChild(cellDiv);
-         }
-      }
-      
-      computerDiv.appendChild(computerBoard);
+      let computerBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
+      computerBattlefield.addEventListener('click', (e) => {
+         console.log(e.target.parentNode);
+         if (!e.target.parentNode.classList.contains('cell')) return;
+         let coords = [e.target.parentNode.dataset.row, e.target.parentNode.dataset.column];
+         this.playerTurn(coords);
+      })
+      computerDiv.appendChild(computerBattlefield);
       main.appendChild(computerDiv);
    }
 

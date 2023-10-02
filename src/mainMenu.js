@@ -1,7 +1,7 @@
 import { Game } from "./game.js";
 import { Gameboard } from "./gameboard.js";
 import { ShipsRandomizer } from "./shipsRandomizer.js";
-import { CellBuilder } from "./cellBuilder.js";
+import { Battlefield } from "./battlefieldBuilder.js";
 
 export class mainMenu {
    constructor() {
@@ -29,28 +29,9 @@ export class mainMenu {
    renderPlayerOneDiv(main) {
       let playerOneDiv = document.createElement('div');
       playerOneDiv.classList.add('player-div');
-      let boardOne = document.createElement('div');
-      boardOne.classList.add('board');
-      console.log(this.playerOneGameboard);
-      for (let row = 0; row < this.playerOneGameboard.gameboard.length; row++) {
-         for (let cell = 0; cell < this.playerOneGameboard.gameboard[row].length; cell++) {
-            let cellDiv = new CellBuilder(row, cell);
-            
-            if (this.playerOneGameboard.gameboard[row][cell].ship != null)  {
-               cellDiv.classList.add('has-ship');
-            }
-
-            if (this.playerOneGameboard.gameboard[row][cell].isOccupied) {
-               cellDiv.classList.add('occupied')
-            }
-
-            boardOne.appendChild(cellDiv);
-         }
-      }
-
-      playerOneDiv.appendChild(boardOne);
+      let battlefield = new Battlefield(this.playerOneGameboard.gameboard, 'Main Menu');
+      playerOneDiv.appendChild(battlefield);
       main.appendChild(playerOneDiv);
-
    }
 
    renderMenuDiv(main) {
@@ -62,9 +43,7 @@ export class mainMenu {
       playWithComputerButton.addEventListener('click', () => {
          this.playGameWithComputer(this.playerOneGameboard);
       });
-
       menuDiv.append(playWithComputerButton);
-
       main.appendChild(menuDiv);
    }
 
