@@ -45,7 +45,7 @@ export class Game {
 
    renderPlayerOneDiv(main) {
       let playerOneDiv = document.createElement('div');
-      playerOneDiv.classList.add('player-div');
+      playerOneDiv.classList.add('player-div', 'player-one-div');
       let playerBattlefield = new Battlefield(this.player.board.gameboard, 'Game(Player)');
       playerOneDiv.appendChild(playerBattlefield);
       main.appendChild(playerOneDiv);
@@ -53,7 +53,7 @@ export class Game {
 
    renderComputerDiv(main) {
       let computerDiv = document.createElement('div');
-      computerDiv.classList.add('player-div');
+      computerDiv.classList.add('player-div', 'player-two-div');
       let computerBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
       computerBattlefield.addEventListener('click', (e) => {
          console.log(e.target.parentNode);

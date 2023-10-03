@@ -20,6 +20,14 @@ main {
    min-width: 340px;
 }
 
+.player-one-div {
+   pointer-events: none;
+}
+
+.player-two-div {
+
+}
+
 .battlefield-table {
    margin: 0;
    border-collapse: collapse;
@@ -67,7 +75,7 @@ main {
 }
 
 .cell.miss {
-   background-color: var(--miss-color)
+   background-color: var(--miss-color);
 }
 
 .cell.hit > .cell-content {
@@ -87,7 +95,7 @@ main {
    left: 0;
 }
 
-.cell:hover .cell-content:after {
+.player-one-div .cell:hover .cell-content:after {
    content: "";
    display: block;
    width: 100%;

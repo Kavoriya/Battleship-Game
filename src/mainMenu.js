@@ -28,7 +28,7 @@ export class mainMenu {
 
    renderPlayerOneDiv(main) {
       let playerOneDiv = document.createElement('div');
-      playerOneDiv.classList.add('player-div');
+      playerOneDiv.classList.add('player-div', 'player-one-div');
       let battlefield = new Battlefield(this.playerOneGameboard.gameboard, 'Main Menu');
       playerOneDiv.appendChild(battlefield);
       main.appendChild(playerOneDiv);
