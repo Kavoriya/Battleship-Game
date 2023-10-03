@@ -3,7 +3,6 @@ import { Ship } from './ship.js';
 import { Gameboard } from './gameboard.js';
 import { Player } from './player.js';
 import { ComputerPlayer } from './computerPlayer.js';
-import { Game } from './game.js';
 import { mainMenu } from './mainMenu.js';
 
 let menu = new mainMenu();

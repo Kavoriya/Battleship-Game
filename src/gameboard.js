@@ -1,6 +1,5 @@
 import { Cell } from "./cell.js";
 import { Ship } from "./ship.js";
-import { isValidCell } from "./cellValidator.js";
 import { findEdges } from "./findEdges.js";
 
 export class Gameboard {
