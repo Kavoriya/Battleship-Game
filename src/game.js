@@ -41,7 +41,6 @@ export class Game {
 
       playerTwoBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
       playerTwoBattlefield.addEventListener('click', (e) => {
-         console.log(e.target.parentNode);
          if (!e.target.parentNode.classList.contains('cell')) return;
          let coords = [e.target.parentNode.dataset.row, e.target.parentNode.dataset.column];
          this.playerTurn(coords);
@@ -79,7 +78,6 @@ export class Game {
       let computerBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
       computerBattlefield.classList.add('battlefield_playerTwo');
       computerBattlefield.addEventListener('click', (e) => {
-         console.log(e.target.parentNode);
          if (!e.target.parentNode.classList.contains('cell')) return;
          let coords = [e.target.parentNode.dataset.row, e.target.parentNode.dataset.column];
          this.playerTurn(coords);
