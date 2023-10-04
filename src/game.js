@@ -24,9 +24,30 @@ export class Game {
       this.renderComputerDiv(main);
    }
 
-   populateBoards() {
-      // this.populatePlayerBoard();
-      this.populateComputerBoard();
+   refreshPlayerOneBattlefield() {
+      let playerOneDiv = document.querySelector('.player-one-div');
+      let playerOneBattlefield = document.querySelector('.battlefield_playerOne');
+      playerOneBattlefield.remove();
+
+      playerOneBattlefield = new Battlefield(this.player.board.gameboard, 'Game(Player)');
+      playerOneBattlefield.classList.add('battlefield_playerOne');
+      playerOneDiv.append(playerOneBattlefield);
+   }
+
+   refreshPlayerTwoBattlefield() {
+      let playerTwoDiv = document.querySelector('.player-two-div');
+      let playerTwoBattlefield = document.querySelector('.battlefield_playerTwo');
+      playerTwoBattlefield.remove();
+
+      playerTwoBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
+      playerTwoBattlefield.addEventListener('click', (e) => {
+         console.log(e.target.parentNode);
+         if (!e.target.parentNode.classList.contains('cell')) return;
+         let coords = [e.target.parentNode.dataset.row, e.target.parentNode.dataset.column];
+         this.playerTurn(coords);
+      })
+      playerTwoBattlefield.classList.add('battlefield_playerTwo');
+      playerTwoDiv.append(playerTwoBattlefield);
    }
 
    populatePlayerBoard() {
@@ -47,6 +68,7 @@ export class Game {
       let playerOneDiv = document.createElement('div');
       playerOneDiv.classList.add('player-div', 'player-one-div');
       let playerBattlefield = new Battlefield(this.player.board.gameboard, 'Game(Player)');
+      playerBattlefield.classList.add('battlefield_playerOne');
       playerOneDiv.appendChild(playerBattlefield);
       main.appendChild(playerOneDiv);
    }
@@ -55,6 +77,7 @@ export class Game {
       let computerDiv = document.createElement('div');
       computerDiv.classList.add('player-div', 'player-two-div');
       let computerBattlefield = new Battlefield(this.computer.board.gameboard, 'Game(Computer)');
+      computerBattlefield.classList.add('battlefield_playerTwo');
       computerBattlefield.addEventListener('click', (e) => {
          console.log(e.target.parentNode);
          if (!e.target.parentNode.classList.contains('cell')) return;
@@ -65,31 +88,31 @@ export class Game {
       main.appendChild(computerDiv);
    }
 
-   computerTurn() {
-      let main = document.querySelector('main');
+   playerTwoTurn() {
+      let playerTwoBattlefield = document.querySelector('.battlefield_playerTwo');
+      playerTwoBattlefield.classList.add('disabled');
       let hit = this.computer.makeTurn(this.player);
       if (hit) {
          this.checkGameOver();
-         main.classList.add('disabled');
          setTimeout(() => {
-            this.computerTurn()
+            this.playerTwoTurn()
          }, 500);
       } else {
-         main.classList.remove('disabled');
+         playerTwoBattlefield.classList.remove('disabled');
       }
-
-      this.refresh();
+      this.refreshPlayerOneBattlefield();
    }
 
    playerTurn(coords) {
       let hit = this.player.attack(coords, this.computer);
       if (hit) {
+         this.refreshPlayerTwoBattlefield();
          this.checkGameOver();
       } else {
-         this.computerTurn();
+         this.refreshPlayerTwoBattlefield();
+         this.playerTwoTurn();
       }
-
-      this.refresh();
+      
    }
 
    removePlayerBoard() {
@@ -116,8 +139,10 @@ export class Game {
       if (this.player.hasLost || this.computer.hasLost) {
          console.log(this.winner.name + ' won!');
          this.isOver = true;
-         let main = document.querySelector('main');
-         main.classList.add('disabled');
+         let playerOneBattlefield = document.querySelector('.battlefield_playerOne');
+         let playerTwoBattlefield = document.querySelector('.battlefield_playerTwo');
+         playerOneBattlefield.classList.add('disabled');
+         playerTwoBattlefield.classList.add('disabled');
       }
    }
 

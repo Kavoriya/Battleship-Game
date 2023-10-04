@@ -24,10 +24,6 @@ main {
    pointer-events: none;
 }
 
-.player-two-div {
-
-}
-
 .battlefield-table {
    margin: 0;
    border-collapse: collapse;
@@ -107,7 +103,7 @@ main {
    left: 0;
 }
 
-.player-one-div .cell:hover .cell-content:after {
+.player-two-div .cell:hover .cell-content:after {
    content: "";
    display: block;
    width: 100%;
@@ -127,6 +123,10 @@ main {
 
 .disabled, .miss, .hit {
    pointer-events: none;
+}
+
+.disabled {
+   opacity: 0.5;
 }
 
 .marker {
