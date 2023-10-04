@@ -131,7 +131,7 @@ main {
 
 .marker {
    position: absolute;
-   font-size: 1rem;
+   font-size: 0.9rem;
    pointer-events: none;
 }
 
@@ -143,7 +143,6 @@ main {
 }
 
 .row-digit {
-   top: 0.5rem;
    left: -3rem;
    width: 2rem;
    height: 1rem;
