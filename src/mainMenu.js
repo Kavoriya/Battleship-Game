@@ -34,6 +34,8 @@ export class mainMenu {
       playerOneDiv.classList.add('player-div', 'player-one-div');
       let battlefield = new Battlefield(this.playerOneGameboard.gameboard, 'Main Menu');
       playerOneDiv.appendChild(battlefield);
+      let buttonsSection = this.renderButtonsSection(playerOneDiv, battlefield);
+      playerOneDiv.append(buttonsSection); 
       main.appendChild(playerOneDiv);
    }
 
@@ -55,5 +57,25 @@ export class mainMenu {
       let game = new Game(playerOneGameboard);
       game.refresh();
    }
+
+   renderButtonsSection(playerOneDiv, battlefield) {
+      let buttonsSection = document.createElement('div');
+      buttonsSection.classList.add('buttons-section');
+      buttonsSection.append(this.renderRandomizeButton(playerOneDiv, battlefield));
+      return buttonsSection;
+   }
+
+   renderRandomizeButton(playerOneDiv, battlefield) {
+      let randomizeButton = document.createElement('button');
+      randomizeButton.classList.add('randomize-btn');
+      randomizeButton.textContent = 'Randomize';
+      randomizeButton.addEventListener('click', () => {
+         this.playerOneGameboard = new ShipsRandomizer();
+         battlefield.remove();
+         battlefield = new Battlefield(this.playerOneGameboard.gameboard, 'Main Menu');
+         playerOneDiv.append(battlefield);
+      })
+      return randomizeButton;
+   }  
 
 }

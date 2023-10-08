@@ -41,7 +41,17 @@ main {
 }
 
 .player-one-div {
+   display: grid;
+   grid-template-rows: 1fr 30px;
+}
+
+.player-one-div > table {
    pointer-events: none;
+}
+
+.buttons-section {
+   grid-row: 2;
+   margin-top: 20px;
 }
 
 .battlefield-table {
