@@ -2,6 +2,8 @@ import { Game } from "./game.js";
 import { Gameboard } from "./gameboard.js";
 import { ShipsRandomizer } from "./shipsRandomizer.js";
 import { Battlefield } from "./battlefieldBuilder.js";
+import { createHeader } from "./header.js";
+import { createFooter } from "./footer.js";
 
 export class mainMenu {
    constructor() {
@@ -9,12 +11,13 @@ export class mainMenu {
       // this.addShipsToPlayerOne();
       this.playerOneGameboard = new ShipsRandomizer();
       let body = document.querySelector('body');
+      let header = createHeader();
       let main = document.createElement('main');
-
+      let footer = createFooter();
       this.renderPlayerOneDiv(main);
       this.renderMenuDiv(main);
 
-      body.appendChild(main);
+      body.append(header, main, footer);
 
    }
 
@@ -39,7 +42,7 @@ export class mainMenu {
       menuDiv.classList.add('player-div', 'menu-div');
       let playWithComputerButton = document.createElement('button');
       playWithComputerButton.classList.add('menu-button');
-      playWithComputerButton.textContent = 'PLAY';
+      playWithComputerButton.textContent = 'PLAY AGAINST COMPUTER';
       playWithComputerButton.addEventListener('click', () => {
          this.playGameWithComputer(this.playerOneGameboard);
       });

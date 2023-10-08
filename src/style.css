@@ -8,16 +8,36 @@
    --miss-color: rgb(250, 250, 210);
 }
 
+body {
+   display: grid;
+   grid-template-rows: 100px 1fr;
+   margin: 0;
+}
+
+header {
+   width: 100%;
+}
+
+h1.battleship-title {
+   position: absolute;
+   top: 15px;
+   left: 60px;
+   font-size: 2rem;
+}
+
 main {
    display: grid;
+   margin: 60px auto;
    grid-template-columns: 1fr 1fr;
    justify-items: center;
-   margin-top: 100px;
+   margin-top: 60px;
+   max-width: 1400px;
 }
 
 .player-div {
    min-height: 340px;
    min-width: 340px;
+   margin: 0 50px;
 }
 
 .player-one-div {
@@ -38,15 +58,27 @@ main {
 }
 
 .menu-button {
-   width: 100px;
-   height: 50px;
+   width: 200px;
+   height: min-content;
+   padding: 12px;
 }
 
 .cell {
+   min-width: 2.5rem;
+   min-height: 2.5rem;
    width: 2.5rem;
    height: 2.5rem;
    padding: 0;
    border: 1px solid var(--border-color);
+}
+
+@media screen and (max-width: 1024px) {
+   .cell {
+      min-width: 2rem;
+      min-height: 2rem;
+      width: 2rem;
+      height: 2rem;
+   }
 }
 
 .cell-content {
@@ -149,3 +181,24 @@ main {
    text-align: right;
 }
 
+footer {
+   display: flex;
+   justify-content: center;
+   position: absolute;
+   bottom: 0;
+   width: 100%;
+}
+
+.author-div {
+   display: flex;
+   align-items: center;
+}
+
+.author-anchor {
+   display: inline-flex;
+   align-items: center;
+}
+
+.logo-github {
+   margin-left: 8px;
+}
