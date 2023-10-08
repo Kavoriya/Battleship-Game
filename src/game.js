@@ -141,7 +141,30 @@ export class Game {
          let playerTwoBattlefield = document.querySelector('.battlefield_playerTwo');
          playerOneBattlefield.classList.add('disabled');
          playerTwoBattlefield.classList.add('disabled');
+         this.renderGameOverPopUp();
       }
    }
 
+   renderGameOverPopUp() {
+      let gameOverDiv = document.createElement('div');
+      gameOverDiv.classList.add('game-over-div');
+      let message = document.createElement('p');
+      message.classList.add('game-over-message');
+      if (this.winner.name == 'Player 1') {
+         message.textContent = 'You won!';
+      } else {
+         message.textContent = 'Game Over!';
+      }
+      gameOverDiv.append(message);
+      let playAgainButton = document.createElement('button');
+      playAgainButton.classList.add('play-again-btn');
+      playAgainButton.textContent = 'Play again';
+      playAgainButton.addEventListener('click', () => {
+         location.reload();
+      })
+      gameOverDiv.append(playAgainButton);
+      
+      let main = document.querySelector('main');
+      main.append(gameOverDiv);
+   }
 }
