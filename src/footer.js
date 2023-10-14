@@ -12,7 +12,7 @@ export const createFooter = () => {
    a.setAttribute('href', 'https://github.com/Kavoriya');
    let githubLogo = document.createElement('img');
    githubLogo.classList.add('logo-github')
-   githubLogo.setAttribute('src', './github-mark.png');
+   githubLogo.setAttribute('src', '../src/github-mark.png');
    githubLogo.setAttribute('width', '30px');
    a.append(githubLogo);
    p.append(a);
