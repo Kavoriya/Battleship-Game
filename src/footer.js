@@ -9,10 +9,10 @@ export const createFooter = () => {
    let a = document.createElement('a');
    a.classList.add('author-anchor');
    a.textContent = 'Roman Grekhov';
-   a.setAttribute('href', 'https://github.com/Kavoriya');
+   a.setAttribute('href', 'https://github.com/Kestrel-72');
    let githubLogo = document.createElement('img');
    githubLogo.classList.add('logo-github')
-   githubLogo.setAttribute('src', '../src/github-mark.png');
+   githubLogo.setAttribute('src', 'src/github-mark.png');
    githubLogo.setAttribute('width', '30px');
    a.append(githubLogo);
    p.append(a);
